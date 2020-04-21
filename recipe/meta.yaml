@@ -1,13 +1,11 @@
 {% set provider = "Bitbucket" %}
 {% set goname = "github.com/terraform-providers/terraform-provider-"+provider.lower() %}
-{% set version = "1.0.0" %}
+{% set version = "1.2.0" %}
 
 {% set name = goname.split('/')[-1] %}
 {% set pkg_src = ('gopath/src/'+goname).replace("/",os.sep) %}
 
 {% set x4_plugin = name + '_v' + version + "_x4" %}
-
-{% set sha256 = "6f5eaacd616c6c5e9de9a23c3fc44277c15d35c7acc25f2647cfac7ac6c2d39e" %}
 
 package:
   name: {{ name|lower }}
@@ -16,11 +14,11 @@ package:
 source:
   - folder:  {{ pkg_src }}
     url: https://{{ goname }}/archive/v{{ version }}.tar.gz
-    sha256: {{ sha256 }}
+    sha256: f3fb4e7203c5599b1895587bb0564e014ddccbd6b3cc8cd8419817b2bf6fea3f
 
 
 build:
-  number: 1002
+  number: 0
   script:
     - pushd {{ pkg_src }}
     - go build -v -o {{ target_gobin }}{{ x4_plugin }}{{ target_goexe }}
