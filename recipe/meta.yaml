@@ -3,25 +3,25 @@
 {% set version = "1.0.0" %}
 
 {% set name = goname.split('/')[-1] %}
+{% set pkg_src = ('gopath/src/'+goname).replace("/",os.sep) %}
 
 {% set x4_plugin = name + '_v' + version + "_x4" %}
 
 {% set sha256 = "6f5eaacd616c6c5e9de9a23c3fc44277c15d35c7acc25f2647cfac7ac6c2d39e" %}
 
 package:
-  - folder: gopath
-    name: {{ name|lower }}
-    version: {{ version }}
+  name: {{ name|lower }}
+  version: {{ version }}
 
 source:
-  url: https://{{ goname }}/archive/v{{ version }}.tar.gz
-  sha256: {{ sha256 }}
+  - folder:  {{ pkg_src }}
+    url: https://{{ goname }}/archive/v{{ version }}.tar.gz
+    sha256: {{ sha256 }}
 
 
 build:
   number: 1002
   script:
-    - pushd gopath
     - go build -v -o {{ target_gobin }}{{ x4_plugin }}{{ target_goexe }}
 
 requirements:
